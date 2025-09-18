@@ -1,29 +1,42 @@
 #include <gtest/gtest.h>
-
+#include <cstdlib>
 #include "disemvowel.h"
 
+// Test cases for disemvowel function
 TEST(Disemvowel, HandleEmptyString) {
-  ASSERT_STREQ("", disemvowel((char*) ""));
+  char *res = disemvowel((char*) "");
+  ASSERT_STREQ("", res);
+  free(res);
 }
 
+// Test case for NULL input
 TEST(Disemvowel, HandleNoVowels) {
-  ASSERT_STREQ("pqrst", disemvowel((char*) "pqrst"));
+  char *res = disemvowel((char*) "pqrst");
+  ASSERT_STREQ("pqrst", res);
+  free(res);
 }
-
+// Test case for string with only vowels
 TEST(Disemvowel, HandleOnlyVowels) {
-  ASSERT_STREQ("", disemvowel((char*) "aeiouAEIOUOIEAuoiea"));
+  char *res = disemvowel((char*) "aeiouAEIOUOIEAuoiea");
+  ASSERT_STREQ("", res);
+  free(res);
 }
 
+// Test case for mixed string
 TEST(Disemvowel, HandleMorrisMinnesota) {
-  ASSERT_STREQ("Mrrs, Mnnst",
-		      disemvowel((char*) "Morris, Minnesota"));
+  char *res = disemvowel((char*) "Morris, Minnesota");
+  ASSERT_STREQ("Mrrs, Mnnst", res);
+  free(res);
 }
 
+// Test case for mixed string with punctuation
 TEST(Disemvowel, HandlePunctuation) {
-  ASSERT_STREQ("n (nxplnd) lphnt!", 
-		      disemvowel((char*) "An (Unexplained) Elephant!"));
+  char *res = disemvowel((char*) "An (Unexplained) Elephant!");
+  ASSERT_STREQ("n (nxplnd) lphnt!", res);
+  free(res);
 }
 
+// Test case for long string
 TEST(Disemvowel, HandleLongString) {
   char *str;
   int size;
@@ -38,9 +51,10 @@ TEST(Disemvowel, HandleLongString) {
     str[i] = 'a';
   }
   str[size-1] = '\0';
+  char *res = disemvowel(str);
+  ASSERT_STREQ("xyz", res);
   
-  ASSERT_STREQ("xyz", disemvowel(str));
-
+  free(res);
   free(str);
 }
 
